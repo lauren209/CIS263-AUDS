@@ -5,26 +5,24 @@ template <typename T>
 
 class AUDS{
 public:
-
 /**
 *integer to hold the size
 */
-  int size = 0;
-
+  int currentsize = 0;
 
 /**
 *constructor to set all the variables
 */
   AUDS(){
-    size = 0;
-    data = new T[initialSize];
+    currentsize = 0;
+    data = new T[capacity];
   }
 
 /**
 * delete all the elements in the structure
 */
   ~AUDS(){
-    size = 0;
+    currentsize = 0;
     delete[] data;
   }
 
@@ -34,13 +32,24 @@ public:
   void push(T element){
 
 
-    if(size == 0){
-      data[size] = element;
-      size++;
+    if(currentsize == 0){
+      data[currentsize] = element;
+      currentsize++;
+    }
+    else if (currentsize == capacity){
+      newData = new T[capacity * currentsize];
+
+      for (int i = 0; i<currentsize; i++){
+        newData[i] = data[i];
+      }
+      capacity = capacity * currentsize;
+      delete[] data;
+      data = newData;
+      currentsize++;
+      // data[currentsize] = element;
     }
     else{
-      size++;
-      data[size] = element;
+      data[currentsize++] = element;
     }
 
   }
@@ -50,31 +59,27 @@ public:
 *remove the first element in the structure
 */
   T pop(){
-    if(size != 0){
-     temp = data[size];
-     size--;
+    int randNum = rand() % currentsize;
+    if(currentsize != 0){
+      // temp = data[currentsize];
+      currentsize--;
     }
-
+      return data[randNum];
+  }
 
 /**
 *method to return the size of the data structure
 */
 int size(){
-  return size;
-  // std::cout << size << std:endl;
-
+  return currentsize;
 }
 
-};
-
-
 private:
-
 /**
 *setting the initial size of structure
 */
-  int initialSize = 100;
-  // int size;
+  int capacity = 100;
   T* data;
   T* temp;
+  T* newData;
 };

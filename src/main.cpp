@@ -1,8 +1,8 @@
 #define CATCH_CONFIG_MAIN  // This tells Catch to provide a main() - only do this in one cpp file
 #include <algorithm>
 #include <string>
-#include "../include/catch.hpp"
-#include "../include/AUDS.h"
+#include "catch.hpp"
+#include "AUDS.h"
 
 // Test cases take two parameters - the first is a test
 // name and the second is a tag.
